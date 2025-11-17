@@ -1,0 +1,255 @@
+0. Finimatic Positioning (simple language)
+
+Who you’re for:
+Finance YouTubers with an existing offer (course/membership/newsletter) doing regular macro / market analysis.
+
+What you do in one line:
+
+Finimatic installs an AI-powered scripting + animation system that turns your raw market videos into high-retention, revenue-focused content — without you writing scripts from scratch or waiting weeks for an editor.
+
+Unique angle vs typical editors:
+
+AI scripting system (not just “we edit videos”)
+
+Chart animations built for CTAs + funnels, not just views
+
+Faster turnaround because infra is built
+
+This is the spine of your website + emails.
+
+1. Landing Page Structure for Finimatic
+
+Think: one clean scroll page, no fluff, built for cold email clicks.
+
+Section 1 – Hero
+
+Goal: Instantly tell a finance creator: “This is for you.”
+
+Layout:
+
+Left: Headline + subhead + CTA button
+
+Right: Short looping GIF of a chart animation / script UI or a thumbnail wall
+
+Sample copy:
+
+Headline (safe version):
+
+Turn Your Market Videos Into a 24/7 Sales Asset
+
+Subhead:
+
+Finimatic builds an AI-powered scripting + animation system for finance creators. You record your usual macro or market update; we turn it into high-retention animated videos with clean CTAs that grow your email list and sell your course or membership.
+
+Primary CTA button:
+
+“See a breakdown & book a call”
+
+Secondary link (text):
+
+“Watch a 3-minute example”
+
+Section 2 – Who This Is For (Filter)
+
+Goal: Make the right people feel “oh, that’s me.”
+
+Bullet it:
+
+Finimatic is built for:
+
+Finance YouTubers with 10K+ subs
+
+You have a course, membership, or paid newsletter (not just AdSense)
+
+You already publish weekly market / macro videos
+
+You’re busy and don’t want to spend 5–10 hours scripting + managing editors
+
+Not a fit if:
+
+You don’t have any product or offer yet
+
+You’re looking for shorts-only editing
+
+You want a full “grow my channel from zero” service
+
+Short, honest, filters well.
+
+Section 3 – The Core Promise + Unique Mechanism
+
+Frame it like Austin’s “promise + unique mechanism” thing.
+
+Section title:
+
+What Finimatic Actually Does
+
+Left – Outcome bullets:
+
+When we work together, our goal is simple:
+
+Turn your weekly macro video into a tight 5–12 minute animated asset
+
+Make that video sell your offer clearly (email opt-ins + checkouts)
+
+Systemize this so it happens every week without you rewriting scripts
+
+Right – Unique Mechanism (name it):
+
+The Finimatic Content Engine™
+A three-part AI content system:
+
+Script Engine – turns your raw talk-to-camera or livestreams into structured, on-brand scripts with CTAs built for your funnel.
+
+Chart Animation Layer – clean, data-first visuals that make your frameworks easy to understand and rewatch.
+
+Revenue Tracking Hooks – UTM-tagged links + simple reporting so we can compare:
+
+“Normal video” vs “Finimatic video” → email signups + sales.
+
+You’re not claiming magic, you’re describing a system.
+
+Section 4 – “How It Works” in 4 Simple Steps
+
+Keep process ultra clear.
+
+How a Typical Week Works
+
+You record as usual
+Your macro update / market analysis / educational video.
+
+We run it through the Finimatic Script Engine
+We condense, restructure and add CTAs aligned with your course / membership.
+
+We produce the animated version
+Charts, flows, key levels, and transitions handled by my team (no new tool learning for you).
+
+We plug in tracking & send a simple report
+Each Finimatic video uses unique UTM links, so over time you’ll see:
+
+viewers → email leads
+
+email leads → sales
+
+Callout box under this:
+
+You keep final cut.
+You can review every script and video before it goes live.
+
+Section 5 – Proof / Case Studies (with your constraints)
+
+You said:
+
+You don’t yet have clean "Finimatic only" case studies
+
+You do have:
+
+Past work that generated ~150M views (shorts + content)
+
+Current creators with solid engagement + watch time
+
+External benchmarks like Bravo’s Research and EPP Research
+
+We’ll use 3 layers of proof:
+
+5.1 Your personal track record
+
+Small strip:
+
+Backed by years inside the finance creator world
+
+Helped creators generate 150M+ views across short-form + long-form content
+
+Built AI scripting systems that now produce videos in days instead of weeks
+
+Working hands-on with finance educators who sell $1,500–$2,000/year programs
+
+(That’s all true and non-hype.)
+
+5.2 “This Is What ‘Winning’ Looks Like in Your Niche” (external channels)
+
+Important: do NOT imply they’re your clients. Make it explicit.
+
+What Good Looks Like (Inspiration, Not Clients)
+Channels like Bravo’s Research and EPP Research have proven there’s huge upside in:
+
+clear, data-driven storytelling
+
+strong chart explainer visuals
+
+consistent CTAs into a paid research product
+
+On our calls, I’ll show how Finimatic’s system is built to move you in that direction, using your frameworks and your voice.
+
+You can screenshot their channels with a small label under each image:
+
+“Inspiration example – not a Finimatic client.”
+
+5.3 Light “results” from your current work
+
+Pick 1–2 numbers you actually have:
+
+“Example: 2.5K-view animated video → 116 hours watch time (46%+ avg view duration).”
+
+“Email signups noticeably up on videos with structured CTAs (client feedback), now being tracked via dedicated UTM links.”
+
+You can show simple graphs/screens:
+
+YouTube Analytics retention curve
+
+Screenshot of client saying “love the CTAs, we’re getting subscribers”
+
+Even if not perfect attribution, frame it honestly:
+
+“These are early signals from channels using the Finimatic approach. We’re now adding full tracking to get hard revenue numbers.”
+
+Section 6 – Packages (High-Level)
+
+Don’t overcomplicate. Two options like Austin said.
+
+Ways to Work Together
+
+Done-For-You Finimatic Content Engine (Agency)
+
+We handle scripting, animations, and tracking for 2–4 videos/month
+
+Best for creators already selling a course/membership who want to save time and push revenue
+
+Done-With-You Implementation (Consulting)
+
+8–12 week sprint to install your own AI scripting + content system
+
+You or your team produce the videos; we give you the prompts, templates, and review
+
+Below this:
+
+Pricing is custom based on volume and complexity. Most creators start between $X–$Y per month for DFY.
+You can leave numbers blank in public and talk money on the call, or put a range like $2–5K/month DFY, $1.5–3K for DWY.
+
+Section 7 – Simple FAQ
+
+Keep it short, answer objections:
+
+“Do I have to change my whole content style?”
+
+“What if I already have an editor?”
+
+“Can we test this on one video first?”
+
+“Will AI make my content feel fake?”
+
+Quick answers like:
+
+“We work on top of your existing style and editor. Think of Finimatic as the brain + blueprints that feed your creative machine.”
+
+Section 8 – Final CTA
+
+Ready to see if Finimatic makes sense for your channel?
+Book a 20-minute call. We’ll:
+
+look at your current funnel
+
+show one way Finimatic would plug into it
+
+decide together if it’s worth testing on 1–2 videos
+
+[Button: Book a call]
