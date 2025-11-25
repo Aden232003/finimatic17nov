@@ -25,7 +25,7 @@
                 <a href="#how-it-works" class="navbar-link">How It Works</a>
                 <a href="#work-samples" class="navbar-link">Work Samples</a>
                 <a href="#benchmarks" class="navbar-link">Benchmarks</a>
-                <a href="#results" class="navbar-link">Receipts</a>
+                <a href="#results" class="navbar-link">Results</a>
             </div>
 
             <!-- CTA Button -->
@@ -42,7 +42,7 @@
             <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
             <a href="#work-samples" class="mobile-menu-link">Work Samples</a>
             <a href="#benchmarks" class="mobile-menu-link">Benchmarks</a>
-            <a href="#results" class="mobile-menu-link">Receipts</a>
+            <a href="#results" class="mobile-menu-link">Results</a>
             <a href="https://calendly.com/adengomes/finimatic-strategy-content-collaboration-call" class="mobile-menu-cta" target="_blank" rel="noopener noreferrer">Book a Call</a>
         </div>
     </nav>
@@ -63,11 +63,36 @@
                 </p>
             </div>
 
+            <!-- 3D Floating Background Element -->
+            <div class="hero-3d-bg">
+                <div class="cube-wrapper">
+                    <div class="cube">
+                        <div class="cube-face cube-front"></div>
+                        <div class="cube-face cube-back"></div>
+                        <div class="cube-face cube-right"></div>
+                        <div class="cube-face cube-left"></div>
+                        <div class="cube-face cube-top"></div>
+                        <div class="cube-face cube-bottom"></div>
+                    </div>
+                </div>
+                <div class="floating-orb orb-1"></div>
+                <div class="floating-orb orb-2"></div>
+                <div class="floating-orb orb-3"></div>
+            </div>
+
             <!-- Pipeline Diagram -->
             <div class="pipeline-diagram" style="margin-top: 3rem;">
-                <!-- Node 1: Raw Video Input -->
-                <div class="pipeline-node pipeline-node--input">
+                <!-- Step 1: Your Raw Video -->
+                <div class="pipeline-node pipeline-node--input pipeline-animate" data-step="1">
+                    <div class="node-step-badge">Step 1</div>
                     <div class="node-content">
+                        <div class="node-icon-wrapper">
+                            <svg class="node-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                            </svg>
+                        </div>
+                        <h3 class="node-title">You Send Us This</h3>
                         <div class="video-frame video-frame--live">
                             <video id="raw-video"
                                    src="https://pub-80916ecd31064b1bb21b62cf3490e8a3.r2.dev/raw-25min.mp4"
@@ -77,69 +102,93 @@
                                    playsinline
                                    controls></video>
                         </div>
-                        <div class="node-label">Raw 25-Minute Market Analysis Video</div>
+                        <div class="node-label">Your 25-min raw market breakdown</div>
+                        <div class="node-sublabel">Talk-to-camera, livestream, or screen recording</div>
                     </div>
                 </div>
 
-                <!-- Arrow 1 -->
-                <div class="pipeline-arrow pipeline-arrow--forward">
-                    <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#fff;stop-opacity:0.3" />
-                                <stop offset="100%" style="stop-color:#22c55e;stop-opacity:0.8" />
-                            </linearGradient>
-                        </defs>
-                        <line x1="0" y1="20" x2="75" y2="20" stroke="url(#arrowGradient1)" stroke-width="2"/>
-                        <polygon points="75,15 95,20 75,25" fill="#22c55e"/>
-                    </svg>
+                <!-- Animated Arrow 1 -->
+                <div class="pipeline-arrow pipeline-arrow--animated">
+                    <div class="arrow-line">
+                        <div class="arrow-pulse"></div>
+                    </div>
+                    <div class="arrow-head"></div>
                 </div>
 
-                <!-- Node 2: AI Script Engine -->
-                <div class="pipeline-node pipeline-node--engine">
+                <!-- Step 2: AI Processing -->
+                <div class="pipeline-node pipeline-node--engine pipeline-animate" data-step="2">
+                    <div class="node-step-badge">Step 2</div>
                     <div class="node-content">
-                        <div class="engine-header">
-                            <span class="engine-icon">{}</span>
-                            <h3>AI Script Engine</h3>
+                        <div class="node-icon-wrapper node-icon--processing">
+                            <svg class="node-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            <div class="processing-ring"></div>
                         </div>
+                        <h3 class="node-title">We Process It</h3>
                         <div class="engine-features">
-                            <div class="feature-item">
-                                <div class="feature-label">Condensed Script</div>
-                                <div class="feature-value">5–9 minutes</div>
+                            <div class="process-item">
+                                <svg class="process-icon-svg" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="M21 21l-4.35-4.35"></path>
+                                </svg>
+                                <span>AI extracts key insights</span>
                             </div>
-                            <div class="feature-pills">
-                                <span class="pill">Revenue CTAs</span>
-                                <span class="pill">Optimized Flow</span>
+                            <div class="process-item">
+                                <svg class="process-icon-svg" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                    <circle cx="6" cy="6" r="3"></circle>
+                                    <path d="M6 21V9a9 9 0 0 0 9 9"></path>
+                                </svg>
+                                <span>Condenses to 5-9 minutes</span>
                             </div>
-                            <div class="flow-steps">
-                                <span class="flow-step">Intro</span>
-                                <span class="flow-arrow">→</span>
-                                <span class="flow-step">Analysis</span>
-                                <span class="flow-arrow">→</span>
-                                <span class="flow-step">CTA</span>
+                            <div class="process-item">
+                                <svg class="process-icon-svg" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <span>Adds revenue CTAs</span>
                             </div>
+                            <div class="process-item">
+                                <svg class="process-icon-svg" viewBox="0 0 24 24" fill="none" stroke="var(--green-primary)" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                <span>Creates chart animations</span>
+                            </div>
+                        </div>
+                        <div class="processing-time">
+                            <svg class="time-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>Delivered in days, not weeks</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Arrow 2 -->
-                <div class="pipeline-arrow pipeline-arrow--forward">
-                    <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#fff;stop-opacity:0.3" />
-                                <stop offset="100%" style="stop-color:#22c55e;stop-opacity:0.8" />
-                            </linearGradient>
-                        </defs>
-                        <line x1="0" y1="20" x2="75" y2="20" stroke="url(#arrowGradient2)" stroke-width="2"/>
-                        <polygon points="75,15 95,20 75,25" fill="#22c55e"/>
-                    </svg>
+                <!-- Animated Arrow 2 -->
+                <div class="pipeline-arrow pipeline-arrow--animated">
+                    <div class="arrow-line">
+                        <div class="arrow-pulse"></div>
+                    </div>
+                    <div class="arrow-head"></div>
                 </div>
 
-                <!-- Node 3: Finimatic Animated Video -->
-                <div class="pipeline-node pipeline-node--output">
+                <!-- Step 3: Polished Output -->
+                <div class="pipeline-node pipeline-node--output pipeline-animate" data-step="3">
+                    <div class="node-step-badge node-step-badge--success">Step 3</div>
                     <div class="node-content">
-                        <div class="video-frame video-frame--live">
+                        <div class="node-icon-wrapper node-icon--success">
+                            <svg class="node-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            <div class="success-sparkle"></div>
+                        </div>
+                        <h3 class="node-title">You Get This Back</h3>
+                        <div class="video-frame video-frame--live video-frame--highlight">
                             <video src="https://pub-80916ecd31064b1bb21b62cf3490e8a3.r2.dev/finimatic-animated.mp4"
                                    autoplay
                                    muted
@@ -147,7 +196,13 @@
                                    playsinline
                                    controls></video>
                         </div>
-                        <div class="node-label">Finimatic Animated Video</div>
+                        <div class="node-label">Polished chart-driven animation</div>
+                        <div class="node-sublabel">Ready to publish & drive course sales</div>
+                        <div class="output-benefits">
+                            <span class="benefit-tag"><i class="fa-solid fa-crosshairs"></i> Hooks in 15 sec</span>
+                            <span class="benefit-tag"><i class="fa-solid fa-chart-line"></i> Higher retention</span>
+                            <span class="benefit-tag"><i class="fa-solid fa-dollar-sign"></i> Built-in CTAs</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,7 +233,7 @@
 
             <!-- CTA Section Below Filter -->
             <div class="filter-cta-section">
-                <a href="#book-call" class="btn btn-primary smooth-scroll-cta">Book Your Free Strategy Call</a>
+                <a href="https://calendly.com/adengomes/finimatic-strategy-content-collaboration-call" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Book Your Free Strategy Call</a>
                 <p class="cta-note" style="text-align: center;">See if Finimatic is right for your channel</p>
             </div>
         </div>
