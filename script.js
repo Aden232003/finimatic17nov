@@ -567,3 +567,456 @@ console.log('');
 console.log('🎨 Green accents and scroll animations are active!');
 console.log('✨ Hover over any element to see the animations');
 console.log('🎬 Hover over Playbook videos to see them play!');
+
+// ============================================
+// DUAL MODE TOGGLE
+// ============================================
+
+const modeButtons = document.querySelectorAll('.mode-btn');
+const modeContents = document.querySelectorAll('.mode-content');
+
+if (modeButtons.length > 0 && modeContents.length > 0) {
+    modeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetMode = button.getAttribute('data-mode');
+            
+            // Remove active class from all buttons
+            modeButtons.forEach(btn => btn.classList.remove('mode-btn--active'));
+            
+            // Add active class to clicked button
+            button.classList.add('mode-btn--active');
+            
+            // Hide all content
+            modeContents.forEach(content => {
+                content.classList.remove('mode-content--active');
+            });
+            
+            // Show target content with a slight delay for smooth transition
+            setTimeout(() => {
+                const targetContent = document.querySelector(`[data-content="${targetMode}"]`);
+                if (targetContent) {
+                    targetContent.classList.add('mode-content--active');
+                }
+            }, 100);
+        });
+    });
+}
+
+// Add intersection observer for stage cards animation on scroll
+if ('IntersectionObserver' in window) {
+    const stageCards = document.querySelectorAll('.stage-card');
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    stageCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+}
+
+
+// ============================================
+// GSAP ANIMATIONS FOR DUAL MODE
+// ============================================
+
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animate stage cards on scroll with GSAP
+    gsap.utils.toArray('.stage-card').forEach((card, index) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                end: 'top 50%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: 'power3.out'
+        });
+        
+        // Hover animation for glow effect
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card.querySelector('.stage-glow'), {
+                opacity: 0.15,
+                duration: 0.4,
+                ease: 'power2.out'
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card.querySelector('.stage-glow'), {
+                opacity: 0,
+                duration: 0.4,
+                ease: 'power2.out'
+            });
+        });
+    });
+    
+    // Animate how-it-works steps
+    gsap.utils.toArray('.step-ai').forEach((step, index) => {
+        gsap.from(step, {
+            scrollTrigger: {
+                trigger: step,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.6,
+            delay: index * 0.15,
+            ease: 'back.out(1.7)'
+        });
+    });
+    
+    // Animate closing statement
+    gsap.from('.closing-statement', {
+        scrollTrigger: {
+            trigger: '.closing-statement',
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+        },
+        scale: 0.95,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+    });
+    
+    // Mode switch animation with GSAP
+    const enhancedModeButtons = document.querySelectorAll('.mode-btn');
+    const enhancedModeContents = document.querySelectorAll('.mode-content');
+    
+    if (enhancedModeButtons.length > 0) {
+        enhancedModeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetMode = button.getAttribute('data-mode');
+                
+                // Animate button feedback
+                gsap.to(button, {
+                    scale: 0.95,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.inOut'
+                });
+                
+                // Remove active from all
+                enhancedModeButtons.forEach(btn => btn.classList.remove('mode-btn--active'));
+                button.classList.add('mode-btn--active');
+                
+                // Animate content switch
+                const currentActive = document.querySelector('.mode-content--active');
+                const targetContent = document.querySelector(`[data-content="${targetMode}"]`);
+                
+                if (currentActive && targetContent && currentActive !== targetContent) {
+                    // Fade out current
+                    gsap.to(currentActive, {
+                        x: -50,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: 'power2.in',
+                        onComplete: () => {
+                            currentActive.classList.remove('mode-content--active');
+                            
+                            // Fade in new
+                            targetContent.classList.add('mode-content--active');
+                            gsap.fromTo(targetContent, 
+                                { x: 50, opacity: 0 },
+                                { 
+                                    x: 0, 
+                                    opacity: 1, 
+                                    duration: 0.4,
+                                    ease: 'power2.out'
+                                }
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    }
+    
+    // Continuous floating animation for mode icons
+    gsap.to('.mode-btn--active .mode-icon', {
+        y: -5,
+        duration: 2,
+        ease: 'power1.inOut',
+        repeat: -1,
+        yoyo: true
+    });
+    
+    // Pulse animation for stage numbers
+    gsap.utils.toArray('.stage-number').forEach(number => {
+        gsap.to(number, {
+            scale: 1.05,
+            opacity: 0.05,
+            duration: 2,
+            ease: 'sine.inOut',
+            repeat: -1,
+            yoyo: true
+        });
+    });
+}
+
+
+// ============================================
+// CHART MODE - SCROLL TO PIPELINE
+// ============================================
+
+const scrollToPipelineBtn = document.querySelector('.scroll-to-pipeline');
+if (scrollToPipelineBtn) {
+    scrollToPipelineBtn.addEventListener('click', () => {
+        const pipelineSection = document.querySelector('.pipeline-diagram');
+        if (pipelineSection) {
+            const navbar = document.querySelector('.navbar');
+            const navbarHeight = navbar ? navbar.offsetHeight : 80;
+            const targetPosition = pipelineSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
+
+// Add pointer cursor to scroll indicator
+if (scrollToPipelineBtn) {
+    scrollToPipelineBtn.style.cursor = 'pointer';
+}
+
+
+// ============================================
+// PARALLAX EFFECT FOR STAGE CARDS
+// ============================================
+
+if (typeof gsap !== 'undefined') {
+    // Subtle parallax on mouse move for stage cards
+    const stageCards = document.querySelectorAll('.stage-card');
+    
+    stageCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            gsap.to(card, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                transformPerspective: 1000,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        });
+    });
+}
+
+
+// ============================================
+// DUAL MODE TOGGLE - SIMPLIFIED (OVERRIDE)
+// ============================================
+
+// Override previous dual mode functionality
+(function() {
+    const modeButtons = document.querySelectorAll('.mode-btn');
+    const modeContents = document.querySelectorAll('.mode-content');
+    const pipelineSection = document.getElementById('chart-pipeline');
+
+    if (modeButtons.length > 0 && modeContents.length > 0) {
+        // Remove old event listeners by cloning buttons
+        modeButtons.forEach((button, index) => {
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            modeButtons[index] = newButton;
+        });
+
+        // Add new simplified event listeners
+        document.querySelectorAll('.mode-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetMode = button.getAttribute('data-mode');
+                
+                // Remove active from all
+                document.querySelectorAll('.mode-btn').forEach(btn => {
+                    btn.classList.remove('mode-btn--active');
+                });
+                
+                // Add active to clicked
+                button.classList.add('mode-btn--active');
+                
+                // Hide all content
+                document.querySelectorAll('.mode-content').forEach(content => {
+                    content.classList.remove('mode-content--active');
+                });
+                
+                // Show target content
+                const targetContent = document.querySelector(`[data-content="${targetMode}"]`);
+                if (targetContent) {
+                    targetContent.classList.add('mode-content--active');
+                }
+                
+                // Show/hide pipeline based on mode
+                if (pipelineSection) {
+                    if (targetMode === 'chart-animations') {
+                        pipelineSection.style.display = 'block';
+                        // Scroll to it after a short delay
+                        setTimeout(() => {
+                            const navbar = document.querySelector('.navbar');
+                            const navbarHeight = navbar ? navbar.offsetHeight : 80;
+                            const targetPosition = pipelineSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 40;
+                            
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }, 300);
+                    } else {
+                        pipelineSection.style.display = 'none';
+                    }
+                }
+            });
+        });
+    }
+
+    // Scroll to pipeline when clicking the arrow
+    const scrollToPipelineBtn = document.querySelector('.scroll-to-pipeline');
+    if (scrollToPipelineBtn && pipelineSection) {
+        scrollToPipelineBtn.addEventListener('click', () => {
+            const navbar = document.querySelector('.navbar');
+            const navbarHeight = navbar ? navbar.offsetHeight : 80;
+            const targetPosition = pipelineSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        });
+        
+        scrollToPipelineBtn.style.cursor = 'pointer';
+    }
+})();
+
+
+// Back to Mode Button Handler
+document.addEventListener('DOMContentLoaded', () => {
+    const backToModeBtn = document.querySelector('.back-to-mode-btn');
+    if (backToModeBtn) {
+        backToModeBtn.addEventListener('click', () => {
+            const targetMode = backToModeBtn.getAttribute('data-target-mode');
+            const targetButton = document.querySelector(`.mode-btn[data-mode="${targetMode}"]`);
+            
+            if (targetButton) {
+                targetButton.click();
+                
+                // Scroll to dual mode section
+                setTimeout(() => {
+                    const dualModeSection = document.querySelector('.dual-mode-container');
+                    if (dualModeSection) {
+                        const navbar = document.querySelector('.navbar');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+                        const targetPosition = dualModeSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+            }
+        });
+    }
+});
+
+
+// ============================================
+// DISABLE ALL DUAL MODE ANIMATIONS
+// ============================================
+
+(function() {
+    // Remove all inline styles that animations might have added
+    const stageCards = document.querySelectorAll('.stage-card');
+    stageCards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = 'none';
+        card.style.animation = 'none';
+        
+        // Remove event listeners by cloning
+        const newCard = card.cloneNode(true);
+        card.parentNode.replaceChild(newCard, card);
+    });
+    
+    // Disable GSAP if it exists
+    if (typeof gsap !== 'undefined') {
+        gsap.killTweensOf('.stage-card');
+        gsap.killTweensOf('.step-ai');
+        gsap.killTweensOf('.mode-icon');
+        gsap.killTweensOf('.stage-number');
+    }
+    
+    // Disable ScrollTrigger if it exists
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+    }
+})();
+
+
+// Fix How It Works visibility
+document.addEventListener('DOMContentLoaded', function() {
+    const howItWorks = document.querySelector('.how-it-works-ai');
+    if (howItWorks) {
+        // Force all children to be visible
+        const allElements = howItWorks.querySelectorAll('*');
+        allElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+            el.style.display = '';
+        });
+        
+        // Ensure steps are visible
+        const steps = document.querySelectorAll('.step-ai');
+        steps.forEach(step => {
+            step.style.display = 'flex';
+            step.style.opacity = '1';
+            step.style.visibility = 'visible';
+        });
+        
+        const stepsContainer = document.querySelector('.steps-ai');
+        if (stepsContainer) {
+            stepsContainer.style.display = 'flex';
+            stepsContainer.style.opacity = '1';
+            stepsContainer.style.visibility = 'visible';
+        }
+    }
+});
+

@@ -1,0 +1,57 @@
+The Creator Revenue Engine (AI Ops Layer)
+
+Four stages. One system.
+
+1) Acquire — Content that attracts the right buyers
+
+Weekly market/content intel (what’s working + why)
+
+Hook + angle generation
+
+Repurposing plans (long → short → email → posts)
+
+Script + outline assistance in your voice
+
+2) Convert — Turn conversations into booked calls
+
+AI “setter assist” (draft replies + follow-up prompts + next-best-message)
+
+Lead tagging + lightweight scoring
+
+Auto reminders + scheduling flow support
+
+Objection handling assist during calls (optional)
+
+3) Deliver — Better client experience with less admin
+
+Auto-send recordings, summaries, action items after calls
+
+Onboarding sequences + check-ins
+
+Content delivery / feedback loops organized
+
+Client / student support workflows
+
+4) Retain — Community systems that compound
+
+Welcome flows + nudges
+
+Weekly prompts + announcements
+
+Q&A triage + “what should I respond” drafting
+
+Campaign workflows for workshops / launches
+
+Translation: You do the creative + the relationships. The system handles the repetition.
+
+SECTION: “How it works” (keep it clean like your current 3-step)
+How It Works
+
+Step 1 — Systems Audit (20 mins)
+We map your funnel: where leads come from, where they drop, what’s manual, what’s expensive.
+
+Step 2 — Install 1–2 automations first (Sprint)
+We build the highest-leverage pieces first (usually conversion + delivery ops).
+
+Step 3 — Iterate monthly (Retainer)
+We expand the system: more agents, better training data, smoother workflow, stronger conversion.

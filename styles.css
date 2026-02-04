@@ -4287,3 +4287,2470 @@ body {
   position: relative;
   overflow: hidden;
 }
+
+/* ===================================
+   DUAL MODE TOGGLE SECTION
+   =================================== */
+
+.dual-mode-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 6rem auto 4rem;
+  padding: 0 2rem;
+}
+
+/* Mode Selector */
+.mode-selector {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.mode-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 3rem;
+  background: white;
+  border: 3px solid #111;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0.3rem 0.3rem 0 0 #111;
+  min-width: 280px;
+}
+
+.mode-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 0.5rem 0.5rem 0 0 #111;
+}
+
+.mode-btn--active {
+  background: var(--green-primary);
+  border-color: #111;
+  transform: translate(-2px, -2px);
+  box-shadow: 0.5rem 0.5rem 0 0 #111;
+}
+
+.mode-btn--active .mode-label,
+.mode-btn--active .mode-badge {
+  color: white;
+}
+
+.mode-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: #111;
+  transition: all 0.3s ease;
+}
+
+.mode-btn--active .mode-icon svg {
+  stroke: white;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.mode-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.mode-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 100px;
+}
+
+.mode-btn--active .mode-badge {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Content Wrapper */
+.mode-content-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mode-content {
+  display: none;
+  opacity: 0;
+  animation: fadeOut 0.4s ease-out forwards;
+}
+
+.mode-content--active {
+  display: block;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+/* Mode Header */
+.mode-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.mode-title {
+  font-family: var(--font-body);
+  font-size: 3rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.mode-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: #666;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Revenue Stages Grid */
+.revenue-stages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.stage-card {
+  position: relative;
+  padding: 3rem;
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.stage-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 0.7rem 0.7rem 0 0 #111;
+}
+
+.stage-number {
+  position: absolute;
+  top: -1rem;
+  right: 2rem;
+  font-size: 8rem;
+  font-weight: 900;
+  font-family: var(--font-body);
+  color: rgba(0, 0, 0, 0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.stage-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.stage-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: #111;
+  stroke-width: 2;
+}
+
+.stage-title {
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.stage-desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.stage-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stage-features li {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #333;
+  padding: 0.75rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stage-features li:last-child {
+  border-bottom: none;
+}
+
+.stage-features li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--green-primary);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Stage-specific colors */
+.stage-card--acquire {
+  border-left: 6px solid #22c55e;
+}
+
+.stage-card--acquire:hover .stage-glow--acquire {
+  opacity: 0.15;
+}
+
+.stage-card--convert {
+  border-left: 6px solid #3b82f6;
+}
+
+.stage-card--convert .stage-icon svg {
+  stroke: #3b82f6;
+}
+
+.stage-card--convert:hover .stage-glow--convert {
+  opacity: 0.15;
+}
+
+.stage-card--deliver {
+  border-left: 6px solid #f59e0b;
+}
+
+.stage-card--deliver .stage-icon svg {
+  stroke: #f59e0b;
+}
+
+.stage-card--deliver:hover .stage-glow--deliver {
+  opacity: 0.15;
+}
+
+.stage-card--retain {
+  border-left: 6px solid #ec4899;
+}
+
+.stage-card--retain .stage-icon svg {
+  stroke: #ec4899;
+}
+
+.stage-card--retain:hover .stage-glow--retain {
+  opacity: 0.15;
+}
+
+/* Stage glow effects */
+.stage-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stage-glow--acquire {
+  background: radial-gradient(circle at top left, #22c55e 0%, transparent 70%);
+}
+
+.stage-glow--convert {
+  background: radial-gradient(circle at top left, #3b82f6 0%, transparent 70%);
+}
+
+.stage-glow--deliver {
+  background: radial-gradient(circle at top left, #f59e0b 0%, transparent 70%);
+}
+
+.stage-glow--retain {
+  background: radial-gradient(circle at top left, #ec4899 0%, transparent 70%);
+}
+
+/* How It Works - AI Section */
+.how-it-works-ai {
+  background: #f9fafb;
+  border: 3px solid #111;
+  padding: 4rem 3rem;
+  margin-bottom: 4rem;
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+}
+
+.section-title-ai {
+  font-family: var(--font-body);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+.steps-ai {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step-ai {
+  flex: 1;
+  text-align: center;
+}
+
+.step-ai-marker {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: var(--font-body);
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.3rem 0.3rem 0 0 #111;
+  color: var(--green-primary);
+  transition: all 0.3s ease;
+}
+
+.step-ai:hover .step-ai-marker {
+  transform: translate(-2px, -2px);
+  box-shadow: 0.5rem 0.5rem 0 0 #111;
+}
+
+.step-ai-title {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.step-ai-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.step-ai-connector {
+  width: 60px;
+  height: 3px;
+  background: #111;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.step-ai-connector::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid #111;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+/* Closing Statement */
+.closing-statement {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: 3px solid #111;
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+}
+
+.closing-text {
+  font-family: var(--font-body);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: 0 auto;
+  letter-spacing: -0.01em;
+}
+
+/* Chart Animations Mode */
+.chart-preview {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  border: 3px solid #111;
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+  padding: 4rem;
+}
+
+.chart-info {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: #666;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .revenue-stages {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .steps-ai {
+    flex-direction: column;
+  }
+
+  .step-ai-connector {
+    width: 3px;
+    height: 60px;
+    transform: rotate(0);
+  }
+
+  .step-ai-connector::after {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -8px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .dual-mode-container {
+    padding: 0 1rem;
+    margin: 4rem auto 3rem;
+  }
+
+  .mode-selector {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mode-btn {
+    min-width: 100%;
+    padding: 1.5rem 2rem;
+  }
+
+  .mode-title {
+    font-size: 2rem;
+  }
+
+  .mode-subtitle {
+    font-size: 1rem;
+  }
+
+  .stage-card {
+    padding: 2rem;
+  }
+
+  .stage-number {
+    font-size: 5rem;
+    top: -0.5rem;
+    right: 1rem;
+  }
+
+  .how-it-works-ai {
+    padding: 2rem 1.5rem;
+  }
+
+  .section-title-ai {
+    font-size: 1.75rem;
+  }
+
+  .closing-statement {
+    padding: 2rem;
+  }
+
+  .closing-text {
+    font-size: 1.25rem;
+  }
+}
+
+/* Entrance Animations */
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stage-card {
+  animation: slideInFromBottom 0.6s ease-out backwards;
+}
+
+.stage-card:nth-child(1) { animation-delay: 0.1s; }
+.stage-card:nth-child(2) { animation-delay: 0.2s; }
+.stage-card:nth-child(3) { animation-delay: 0.3s; }
+.stage-card:nth-child(4) { animation-delay: 0.4s; }
+
+
+/* Chart Animation Mode Enhancements */
+.chart-value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.chart-value-card {
+  padding: 2.5rem;
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.3rem 0.3rem 0 0 #111;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+}
+
+.chart-value-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 0.6rem 0.6rem 0 0 #111;
+}
+
+.chart-value-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-value-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--green-primary);
+  stroke-width: 2;
+}
+
+.chart-value-title {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.chart-value-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Scroll to Pipeline Indicator */
+.scroll-to-pipeline {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.scroll-text {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.scroll-arrow-indicator {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow-indicator svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--green-primary);
+  stroke-width: 3;
+}
+
+@keyframes bounceArrow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Responsive for chart value grid */
+@media (max-width: 1024px) {
+  .chart-value-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+
+/* Pipeline Mode Badge */
+.pipeline-mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: var(--green-primary);
+  border: 3px solid #111;
+  box-shadow: 0.3rem 0.3rem 0 0 #111;
+  margin-bottom: 3rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.pipeline-mode-badge svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+@media (max-width: 768px) {
+  .pipeline-mode-badge {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .pipeline-mode-badge svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+
+/* ===================================
+   DUAL MODE - HORIZONTAL LAYOUT OVERRIDE
+   =================================== */
+
+.dual-mode-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.dual-mode-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* Mode Selector - Left Side, Vertical Stack */
+.mode-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+}
+
+.mode-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: white;
+  border: 3px solid #111;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0.25rem 0.25rem 0 0 #111;
+  width: 100%;
+}
+
+.mode-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+}
+
+.mode-btn--active {
+  background: var(--green-primary);
+  border-color: #111;
+  transform: translate(-2px, -2px);
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+}
+
+.mode-btn--active .mode-label {
+  color: white;
+}
+
+.mode-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mode-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: #111;
+  transition: all 0.3s ease;
+}
+
+.mode-btn--active .mode-icon svg {
+  stroke: white;
+}
+
+.mode-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+.mode-badge {
+  display: none;
+}
+
+/* Content Area - Right Side */
+.mode-content-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.mode-content {
+  display: none;
+  opacity: 0;
+}
+
+.mode-content--active {
+  display: block;
+  opacity: 1;
+  animation: fadeInContent 0.4s ease-out;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Mode Headers */
+.mode-header {
+  margin-bottom: 3rem;
+}
+
+.mode-title {
+  font-family: var(--font-body);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.mode-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Revenue Stages - Compact 2x2 Grid */
+.revenue-stages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.stage-card {
+  padding: 1.5rem;
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.25rem 0.25rem 0 0 #111;
+  transition: all 0.3s ease;
+}
+
+.stage-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+}
+
+.stage-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stage-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.stage-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2;
+}
+
+.stage-card--acquire .stage-icon svg {
+  stroke: #22c55e;
+}
+
+.stage-card--convert .stage-icon svg {
+  stroke: #3b82f6;
+}
+
+.stage-card--deliver .stage-icon svg {
+  stroke: #f59e0b;
+}
+
+.stage-card--retain .stage-icon svg {
+  stroke: #ec4899;
+}
+
+.stage-title {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.stage-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.stage-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stage-features li {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #333;
+  padding: 0.5rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.4;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.stage-features li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.stage-features li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #111;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.stage-card--acquire .stage-features li::before {
+  color: #22c55e;
+}
+
+.stage-card--convert .stage-features li::before {
+  color: #3b82f6;
+}
+
+.stage-card--deliver .stage-features li::before {
+  color: #f59e0b;
+}
+
+.stage-card--retain .stage-features li::before {
+  color: #ec4899;
+}
+
+/* Remove old stage number and glow effects */
+.stage-number,
+.stage-glow {
+  display: none;
+}
+
+/* How It Works - Compact */
+.how-it-works-ai {
+  background: #f9fafb;
+  border: 3px solid #111;
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0.25rem 0.25rem 0 0 #111;
+}
+
+.section-title-ai {
+  font-family: var(--font-body);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.steps-ai {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.step-ai {
+  flex: 1;
+  text-align: center;
+}
+
+.step-ai-marker {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: var(--font-body);
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.2rem 0.2rem 0 0 #111;
+  color: var(--green-primary);
+}
+
+.step-ai-title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.step-ai-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.step-ai-connector {
+  width: 40px;
+  height: 3px;
+  background: #111;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.step-ai-connector::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid #111;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+/* Closing Statement - Compact */
+.closing-statement {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: 3px solid #111;
+  box-shadow: 0.25rem 0.25rem 0 0 #111;
+}
+
+.closing-text {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* Chart Animations Mode - Simplified */
+.scroll-to-pipeline {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.scroll-text {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.scroll-arrow-indicator {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow-indicator svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--green-primary);
+  stroke-width: 3;
+}
+
+/* Hide chart value cards */
+.chart-value-grid,
+.chart-value-card,
+.pipeline-mode-badge {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dual-mode-layout {
+    flex-direction: column;
+  }
+
+  .mode-selector {
+    width: 100%;
+    flex-direction: row;
+    position: static;
+  }
+
+  .mode-btn {
+    flex: 1;
+  }
+
+  .revenue-stages {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-ai {
+    flex-direction: column;
+  }
+
+  .step-ai-connector {
+    width: 3px;
+    height: 40px;
+  }
+
+  .step-ai-connector::after {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -6px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .dual-mode-container {
+    padding: 0 1rem;
+    margin: 3rem auto;
+  }
+
+  .mode-selector {
+    flex-direction: column;
+  }
+
+  .mode-title {
+    font-size: 1.75rem;
+  }
+
+  .mode-subtitle {
+    font-size: 1rem;
+  }
+
+  .stage-card {
+    padding: 1.25rem;
+  }
+
+  .how-it-works-ai {
+    padding: 2rem 1.5rem;
+  }
+
+  .section-title-ai {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* Back to Mode Button */
+.back-to-mode-container {
+  text-align: center;
+  margin: 4rem 0 2rem;
+}
+
+.back-to-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: white;
+  border: 3px solid #111;
+  box-shadow: 0.25rem 0.25rem 0 0 #111;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-to-mode-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 0.4rem 0.4rem 0 0 #111;
+  background: var(--green-primary);
+  color: white;
+}
+
+.back-to-mode-btn:hover svg {
+  stroke: white;
+}
+
+.back-to-mode-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #111;
+  transition: all 0.3s ease;
+}
+
+/* ===================================
+   DUAL MODE - COMPLETE FIX
+   =================================== */
+
+.dual-mode-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.dual-mode-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+/* Toggle Buttons - Small, Left Aligned */
+.mode-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 180px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+  margin-left: 0;
+}
+
+.mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 2px solid #111;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.2s ease;
+  box-shadow: 0.2rem 0.2rem 0 0 #111;
+}
+
+.mode-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 0.3rem 0.3rem 0 0 #111;
+}
+
+.mode-btn--active {
+  background: var(--green-primary);
+  border-color: #111;
+}
+
+.mode-btn--active .mode-label {
+  color: white;
+}
+
+.mode-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.mode-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: #111;
+}
+
+.mode-btn--active .mode-icon svg {
+  stroke: white;
+}
+
+.mode-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.01em;
+}
+
+/* Content Area */
+.mode-content-wrapper {
+  flex: 1;
+}
+
+.mode-content {
+  display: none;
+}
+
+.mode-content--active {
+  display: block;
+}
+
+.mode-header {
+  margin-bottom: 2rem;
+}
+
+.mode-title {
+  font-family: var(--font-body);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.03em;
+}
+
+.mode-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* 4 Stage Cards - HORIZONTAL LAYOUT */
+.revenue-stages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stage-card {
+  padding: 1.25rem;
+  background: white;
+  border: 2px solid #111;
+  box-shadow: 0.2rem 0.2rem 0 0 #111;
+  /* Remove all animations */
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.stage-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.stage-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.stage-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.stage-card--acquire .stage-icon svg {
+  stroke: #22c55e;
+}
+
+.stage-card--convert .stage-icon svg {
+  stroke: #3b82f6;
+}
+
+.stage-card--deliver .stage-icon svg {
+  stroke: #f59e0b;
+}
+
+.stage-card--retain .stage-icon svg {
+  stroke: #ec4899;
+}
+
+.stage-title {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+}
+
+.stage-desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.stage-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stage-features li {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #333;
+  padding: 0.4rem 0;
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.3;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stage-features li:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.stage-features li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.stage-card--acquire .stage-features li::before {
+  color: #22c55e;
+}
+
+.stage-card--convert .stage-features li::before {
+  color: #3b82f6;
+}
+
+.stage-card--deliver .stage-features li::before {
+  color: #f59e0b;
+}
+
+.stage-card--retain .stage-features li::before {
+  color: #ec4899;
+}
+
+/* How It Works - Compact */
+.how-it-works-ai {
+  background: #f9fafb;
+  border: 2px solid #111;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0.2rem 0.2rem 0 0 #111;
+}
+
+.section-title-ai {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #111;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.steps-ai {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.step-ai {
+  flex: 1;
+  text-align: center;
+}
+
+.step-ai-marker {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  font-family: var(--font-body);
+  background: white;
+  border: 2px solid #111;
+  box-shadow: 0.15rem 0.15rem 0 0 #111;
+  color: var(--green-primary);
+}
+
+.step-ai-title {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.4rem;
+}
+
+.step-ai-desc {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.step-ai-connector {
+  width: 30px;
+  height: 2px;
+  background: #111;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.step-ai-connector::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid #111;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
+/* Closing Statement */
+.closing-statement {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: 2px solid #111;
+  box-shadow: 0.2rem 0.2rem 0 0 #111;
+}
+
+.closing-text {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.4;
+}
+
+/* Chart Mode */
+.scroll-to-pipeline {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.scroll-text {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.scroll-arrow-indicator {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  animation: bounceArrow 2s ease-in-out infinite;
+}
+
+.scroll-arrow-indicator svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--green-primary);
+  stroke-width: 3;
+}
+
+/* Fix Pipeline to be HORIZONTAL */
+.pipeline-diagram {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+
+.pipeline-node {
+  flex: 1;
+  max-width: 350px;
+}
+
+.pipeline-arrow {
+  flex-shrink: 0;
+  width: 60px;
+  align-self: center;
+  margin-top: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .revenue-stages {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pipeline-diagram {
+    flex-direction: column !important;
+  }
+  
+  .pipeline-arrow {
+    width: auto;
+    height: 60px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dual-mode-layout {
+    flex-direction: column;
+  }
+  
+  .mode-selector {
+    width: 100%;
+    flex-direction: row;
+    position: static;
+  }
+  
+  .revenue-stages {
+    grid-template-columns: 1fr;
+  }
+  
+  .steps-ai {
+    flex-direction: column;
+  }
+  
+  .step-ai-connector {
+    width: 2px;
+    height: 30px;
+  }
+  
+  .step-ai-connector::after {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -5px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}
+
+
+/* Force left alignment and remove excess padding */
+.dual-mode-container {
+  padding-left: 1rem !important;
+}
+
+.mode-selector {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Ensure 4 stage cards stay horizontal on desktop */
+@media (min-width: 1024px) {
+  .revenue-stages {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* Remove ALL animations globally for dual mode */
+.stage-card,
+.stage-card * {
+  animation: none !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.stage-card:hover {
+  animation: none !important;
+}
+
+
+/* ===================================
+   FORCE FULL WIDTH SPREAD
+   =================================== */
+
+.dual-mode-container {
+  max-width: 100% !important;
+  padding: 4rem 3rem !important;
+}
+
+.dual-mode-layout {
+  gap: 4rem !important;
+}
+
+.mode-content-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Stage Cards - Full Width Spread */
+.revenue-stages {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.stage-card {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 320px;
+}
+
+/* Fix How It Works - Visible Content */
+.how-it-works-ai {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: auto !important;
+  padding: 2.5rem !important;
+  margin-top: 2rem !important;
+}
+
+.steps-ai {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 2rem !important;
+  width: 100% !important;
+}
+
+.step-ai {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.step-ai-marker {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  margin-bottom: 1rem !important;
+}
+
+.step-ai-title,
+.step-ai-desc {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.step-ai-connector {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  align-self: center !important;
+  margin-top: 2rem !important;
+}
+
+/* Force visibility */
+.how-it-works-ai * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+/* Additional fixes for proper spacing */
+.mode-header {
+  margin-bottom: 2.5rem !important;
+}
+
+/* Remove any max-width constraints */
+.vsl-container,
+.vsl-wrapper {
+  max-width: none !important;
+}
+
+/* Ensure content area uses full width */
+.mode-content {
+  width: 100% !important;
+}
+
+/* Stage card content should wrap properly */
+.stage-header {
+  min-height: 80px;
+}
+
+.stage-features {
+  min-height: 180px;
+}
+
+/* How It Works - Force horizontal layout */
+.section-title-ai {
+  display: block !important;
+  margin-bottom: 2rem !important;
+}
+
+.steps-ai {
+  flex-wrap: nowrap !important;
+}
+
+.step-ai {
+  min-width: 0 !important;
+}
+
+.step-ai-marker,
+.step-ai-title,
+.step-ai-desc {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Remove any absolute positioning that might hide content */
+.how-it-works-ai .step-ai * {
+  position: relative !important;
+}
+
+
+/* Pipeline full width */
+.pipeline-diagram {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 3rem !important;
+}
+
+.pipeline-node {
+  max-width: none !important;
+  flex: 1 !important;
+}
+
+/* Ensure no container is restricting width */
+.vsl-container {
+  padding: 0 3rem !important;
+}
+
+/* Mode selector - keep it compact on left */
+.mode-selector {
+  width: 160px !important;
+  flex-shrink: 0 !important;
+}
+
+
+/* ===================================
+   FIX TOGGLE BUTTON OVERLAY ISSUE
+   =================================== */
+
+/* Make toggle buttons smaller and non-overlapping */
+.mode-selector {
+  width: 140px !important;
+  flex-shrink: 0 !important;
+  margin-right: 2rem !important;
+}
+
+.mode-btn {
+  padding: 0.6rem 0.85rem !important;
+  font-size: 0.85rem !important;
+}
+
+.mode-label {
+  font-size: 0.8rem !important;
+  line-height: 1.2 !important;
+}
+
+.mode-icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Ensure content area doesn't overlap toggles */
+.mode-content-wrapper {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Add clear separation between toggle and content */
+.dual-mode-layout {
+  gap: 2.5rem !important;
+  align-items: flex-start !important;
+}
+
+/* Ensure stage cards start after toggle buttons */
+.revenue-stages {
+  margin-left: 0 !important;
+  clear: both !important;
+}
+
+/* Prevent any absolute positioning that causes overlay */
+.mode-selector,
+.mode-btn {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.mode-content-wrapper {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Reduce toggle button height */
+.mode-btn {
+  min-height: auto !important;
+  height: auto !important;
+}
+
+
+/* Additional spacing fixes */
+.dual-mode-container {
+  padding-left: 2rem !important;
+  padding-right: 3rem !important;
+}
+
+/* Ensure flex items don't overlap */
+.dual-mode-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+}
+
+/* Mode content should take remaining space without overlap */
+.mode-content-wrapper {
+  flex: 1 !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+/* Stage cards should respect boundaries */
+.revenue-stages {
+  position: relative !important;
+}
+
+.stage-card {
+  position: relative !important;
+}
+
+
+/* ===================================
+   MOVE TOGGLES ABOVE CONTENT
+   =================================== */
+
+/* Change layout to vertical stack */
+.dual-mode-layout {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important;
+  align-items: stretch !important;
+}
+
+/* Toggles in horizontal row at top */
+.mode-selector {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1rem !important;
+  width: auto !important;
+  max-width: 400px !important;
+  position: static !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Smaller toggle buttons */
+.mode-btn {
+  flex: 1 !important;
+  padding: 0.65rem 1rem !important;
+  min-width: 140px !important;
+  max-width: 180px !important;
+}
+
+.mode-label {
+  font-size: 0.8rem !important;
+  white-space: nowrap !important;
+}
+
+.mode-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Content takes full width below toggles */
+.mode-content-wrapper {
+  width: 100% !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Remove z-index since no overlay */
+.mode-selector,
+.mode-btn,
+.mode-content-wrapper {
+  z-index: auto !important;
+}
+
+/* Adjust container padding */
+.dual-mode-container {
+  padding: 3rem 3rem !important;
+}
+
+/* Stage cards full width */
+.revenue-stages {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+
+
+/* Adjust spacing for new layout */
+.mode-header {
+  margin-top: 1rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Ensure no overlap or awkward spacing */
+.mode-content {
+  padding-top: 0 !important;
+}
+
+/* Toggle buttons centered or left-aligned */
+.mode-selector {
+  justify-content: flex-start !important;
+}
+
+
+/* ===================================
+   MOBILE OPTIMIZATION
+   =================================== */
+
+/* Tablet - 1024px and below */
+@media (max-width: 1024px) {
+  .dual-mode-container {
+    padding: 2rem 1.5rem !important;
+  }
+  
+  /* Stage cards - 2 columns on tablet */
+  .revenue-stages {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+  
+  .mode-title {
+    font-size: 2rem !important;
+  }
+  
+  .mode-subtitle {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* Mobile - 768px and below */
+@media (max-width: 768px) {
+  .dual-mode-container {
+    padding: 1.5rem 1rem !important;
+    margin: 2rem auto !important;
+  }
+  
+  /* Toggle buttons stack vertically on mobile */
+  .mode-selector {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 0.75rem !important;
+  }
+  
+  .mode-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* Header adjustments */
+  .mode-header {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  .mode-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .mode-subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  /* Stage cards - single column on mobile */
+  .revenue-stages {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .stage-card {
+    padding: 1rem !important;
+    min-height: auto !important;
+  }
+  
+  .stage-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  .stage-title {
+    font-size: 1rem !important;
+  }
+  
+  .stage-desc {
+    font-size: 0.75rem !important;
+  }
+  
+  .stage-features li {
+    font-size: 0.75rem !important;
+    padding: 0.35rem 0 !important;
+  }
+  
+  /* How It Works - stack vertically */
+  .how-it-works-ai {
+    padding: 1.5rem 1rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  .section-title-ai {
+    font-size: 1.25rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  .steps-ai {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  
+  .step-ai {
+    width: 100% !important;
+  }
+  
+  .step-ai-marker {
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .step-ai-title {
+    font-size: 0.85rem !important;
+  }
+  
+  .step-ai-desc {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Rotate connector for vertical layout */
+  .step-ai-connector {
+    width: 2px !important;
+    height: 30px !important;
+    margin-top: 0 !important;
+  }
+  
+  .step-ai-connector::after {
+    right: auto !important;
+    left: 50% !important;
+    top: auto !important;
+    bottom: -5px !important;
+    transform: translateX(-50%) rotate(90deg) !important;
+  }
+  
+  /* Closing statement */
+  .closing-statement {
+    padding: 1.25rem 1rem !important;
+  }
+  
+  .closing-text {
+    font-size: 1rem !important;
+  }
+  
+  /* Chart mode */
+  .scroll-to-pipeline {
+    padding: 2rem 0 !important;
+  }
+  
+  .scroll-text {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Pipeline - vertical on mobile */
+  .pipeline-diagram {
+    flex-direction: column !important;
+    padding: 0 1rem !important;
+    gap: 1rem !important;
+  }
+  
+  .pipeline-node {
+    max-width: 100% !important;
+  }
+  
+  .pipeline-arrow {
+    width: auto !important;
+    height: 50px !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Back button */
+  .back-to-mode-btn {
+    padding: 0.85rem 1.5rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .back-to-mode-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* Small mobile - 480px and below */
+@media (max-width: 480px) {
+  .dual-mode-container {
+    padding: 1rem 0.75rem !important;
+  }
+  
+  .mode-title {
+    font-size: 1.5rem !important;
+  }
+  
+  .mode-subtitle {
+    font-size: 0.85rem !important;
+  }
+  
+  .stage-card {
+    padding: 0.85rem !important;
+  }
+  
+  .how-it-works-ai {
+    padding: 1.25rem 0.85rem !important;
+  }
+  
+  .section-title-ai {
+    font-size: 1.1rem !important;
+  }
+  
+  .closing-text {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* Ensure mobile menu doesn't interfere */
+@media (max-width: 768px) {
+  body.mobile-menu-open .dual-mode-container {
+    pointer-events: none;
+  }
+}
+
+
+/* Additional mobile fixes */
+@media (max-width: 768px) {
+  /* Ensure proper touch targets */
+  .mode-btn {
+    min-height: 44px !important;
+  }
+  
+  .stage-card {
+    min-height: auto !important;
+    touch-action: manipulation;
+  }
+  
+  /* Prevent horizontal overflow */
+  .dual-mode-layout,
+  .mode-content-wrapper,
+  .revenue-stages {
+    overflow-x: hidden !important;
+  }
+  
+  /* Better spacing on mobile */
+  .dual-mode-layout {
+    gap: 1.25rem !important;
+  }
+  
+  /* Readable text on mobile */
+  .stage-features li::before {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 896px) and (orientation: landscape) {
+  .dual-mode-container {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  
+  .mode-header {
+    margin-top: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+
+/* ===================================
+   RESTORE CENTERED LAYOUT FOR OTHER SECTIONS
+   =================================== */
+
+/* Sections after dual-mode should remain centered with max-width */
+.what-you-get,
+.work-samples,
+.playbook-section,
+.results-section,
+.testimonials-section,
+.pricing-section,
+.faq-section,
+.vsl-container:not(.dual-mode-container) {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+/* Pipeline should also be centered when visible */
+.pipeline-diagram {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Ensure flywheel and other content sections are centered */
+.flywheel-container,
+.content-flywheel {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+/* Feature grid and other grids */
+.feature-grid,
+.work-samples-grid,
+.results-grid {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Only dual-mode container should be full width */
+.dual-mode-container {
+  max-width: 100% !important;
+}
+
+/* Tablet spacing for other sections */
+@media (max-width: 1024px) {
+  .what-you-get,
+  .work-samples,
+  .playbook-section,
+  .results-section {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+/* Mobile spacing for other sections */
+@media (max-width: 768px) {
+  .what-you-get,
+  .work-samples,
+  .playbook-section,
+  .results-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+
+/* Additional centered sections */
+section:not(.dual-mode-container),
+.section:not(.dual-mode-container),
+.container:not(.dual-mode-container):not(.dual-mode-layout) {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Specific section classes */
+.benchmark-section,
+.faq-container,
+.footer-container {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+/* Ensure vsl-wrapper doesn't expand */
+.vsl-wrapper:not(.dual-mode-layout) {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+
+/* ===================================
+   FIX BADGE VISIBILITY ON MOBILE
+   =================================== */
+
+/* Ensure badge is visible on all screen sizes */
+.badge {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-bottom: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.875rem !important;
+  white-space: normal !important;
+  text-align: center !important;
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+}
+
+/* Mobile adjustments for badge */
+@media (max-width: 768px) {
+  .badge {
+    font-size: 0.75rem !important;
+    padding: 0.4rem 0.85rem !important;
+    margin-bottom: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .badge {
+    font-size: 0.7rem !important;
+    padding: 0.35rem 0.75rem !important;
+    max-width: 95% !important;
+  }
+}
+
+/* Ensure parent container doesn't hide badge */
+.vsl-content {
+  overflow: visible !important;
+}
+
+/* Hero headline adjustments to not overlap badge */
+.vsl-headline {
+  margin-top: 0.5rem !important;
+}
+
+
+/* Additional badge fixes */
+.badge {
+  position: relative !important;
+  z-index: 10 !important;
+  transform: none !important;
+}
+
+/* Ensure it doesn't get clipped by navbar */
+.vsl-container {
+  padding-top: 100px !important;
+}
+
+@media (max-width: 768px) {
+  .vsl-container {
+    padding-top: 90px !important;
+  }
+  
+  /* Make sure badge has enough space at top */
+  .vsl-content {
+    padding-top: 1rem !important;
+  }
+}
+
