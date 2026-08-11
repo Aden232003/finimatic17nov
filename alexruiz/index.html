@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finimatic — Expediente TradingLab</title>
+<meta name="description" content="Expediente de trabajo: piezas, método, archivo y moderación. Preparado para TradingLab.">
+<meta name="robots" content="noindex">
+<style>
+@font-face{font-family:D;src:url(fonts/disp-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:D;src:url(fonts/disp-600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:D;src:url(fonts/disp-800.woff2) format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:M;src:url(fonts/mono-300.woff2) format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:M;src:url(fonts/mono-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:M;src:url(fonts/mono-500.woff2) format('woff2');font-weight:500;font-display:swap}
+
+:root{
+  --bg:#07070a; --bg2:#0d0e12; --bg3:#121319;
+  --line:#1e2026; --line2:#2b2e36;
+  --txt:#f0eee9; --dim:#858b93; --dim2:#5c626a;
+  --blue:#1d47ff; --yellow:#f5d90a; --red:#e8203c;
+  --teal:#12857c; --cream:#f2ead8; --coral:#ff5a3c; --pink:#ff86b0;
+  --D:D,"Bricolage Grotesque",Inter,system-ui,sans-serif;
+  --M:M,"Chivo Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--M);font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+.w{max-width:1240px;margin:0 auto;padding:0 36px}
+img{max-width:100%}
+
+.c{font-family:var(--M);font-size:9.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--dim2)}
+.mt{font-family:var(--M);font-size:10.5px;letter-spacing:.09em;color:var(--dim)}
+h1,h2,h3{font-family:var(--D);font-weight:800;letter-spacing:-.035em;margin:0;line-height:.93}
+h1{font-size:clamp(52px,10vw,132px)}
+h2{font-size:clamp(30px,5.2vw,62px)}
+h3{font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.hl{color:var(--yellow)} .hb{color:var(--blue)} .hr{color:var(--red)} .hc{color:var(--coral)}
+p{line-height:1.8;color:#9ba2aa;margin:0;font-size:12px}
+.lede{font-size:13px;line-height:1.85;color:#aeb5bd;max-width:54ch}
+
+.ledger{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;
+  padding:15px 22px;pointer-events:none}
+.ledger span{background:var(--bg);padding:2px 5px}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:46px 0 0;position:relative;z-index:60}
+.brand{display:flex;align-items:baseline;gap:9px}
+.brand b{font-family:var(--D);font-weight:800;font-size:19px;letter-spacing:-.04em}
+.brand i{width:7px;height:7px;background:var(--red);border-radius:50%;display:inline-block;font-style:normal}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+nav a{font-family:var(--M);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  text-decoration:none;transition:color .25s}
+nav a:hover{color:var(--txt)}
+
+/* ══ masthead ══ */
+.mast{padding:60px 0 0;position:relative}
+.mast h1{margin-top:16px}
+.mast h1 em{font-style:normal;-webkit-text-stroke:1.4px var(--dim2);color:transparent}
+.mrow{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-top:30px;flex-wrap:wrap}
+
+/* ══ THE TABLE — re-choreographing collage ══ */
+.table{position:relative;height:720px;margin:44px 0 0;perspective:1800px;perspective-origin:50% 42%;contain:layout paint}
+.art{position:absolute;left:50%;top:60px;transform-style:preserve-3d;cursor:pointer;
+  transition:transform .82s cubic-bezier(.2,.8,.22,1),opacity .6s ease,filter .6s ease;
+  will-change:transform,opacity}
+.reel{width:246px;height:437px;border-radius:4px;overflow:hidden;background:#04050a;
+  border:1px solid #2a2e36;box-shadow:0 28px 64px rgba(0,0,0,.74)}
+.reel img,.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reel video{opacity:0;transition:opacity .45s}
+.reel.on video{opacity:1}
+.reel .tag{position:absolute;left:9px;top:9px;z-index:4;font-family:var(--M);font-size:8.5px;
+  letter-spacing:.16em;padding:4px 7px;border-radius:2px;background:rgba(4,5,10,.85);
+  border:1px solid #363b44;color:#eceae5}
+.reel .tag.own{border-color:var(--red);background:var(--red);color:#fff}
+.reel .vg{position:absolute;inset:0;z-index:3;pointer-events:none;transition:opacity .5s;
+  background:linear-gradient(180deg,rgba(7,7,10,.12),transparent 34%,transparent 60%,rgba(7,7,10,.86))}
+.reel.on .vg{opacity:.4}
+.reel .cp{position:absolute;left:11px;right:11px;bottom:10px;z-index:4;font-family:var(--M);
+  font-size:9px;line-height:1.55;color:#e2dfd9}
+.scrap{padding:8px;background:var(--cream);box-shadow:0 24px 54px rgba(0,0,0,.62);border-radius:2px}
+.scrap img{display:block;width:100%;height:auto}
+.scrap .sl{display:flex;justify-content:space-between;margin-top:6px}
+.scrap .sl span{font-family:var(--M);font-size:8.5px;letter-spacing:.13em;color:#4a4033;text-transform:uppercase}
+
+.ficha{position:absolute;z-index:30;width:214px;background:var(--blue);color:#fff;padding:16px;
+  border-radius:3px;box-shadow:0 26px 58px rgba(29,71,255,.3);
+  transition:transform .5s cubic-bezier(.3,.9,.3,1),opacity .3s}
+.ficha.shrink{transform:scale(.12);opacity:0}
+.ficha .k{font-family:var(--M);font-size:8.5px;letter-spacing:.2em;opacity:.68;text-transform:uppercase}
+.ficha h4{font-family:var(--D);font-weight:800;font-size:19px;letter-spacing:-.03em;margin:9px 0 7px}
+.ficha p{font-family:var(--M);font-size:10px;line-height:1.7;color:#e4e8ff;margin:0}
+.ficha .yr{font-family:var(--M);font-size:9.5px;margin-top:10px;opacity:.6}
+.pill{display:inline-flex;align-items:center;gap:7px;background:var(--yellow);color:#141414;
+  font-family:var(--M);font-size:10px;font-weight:500;letter-spacing:.07em;padding:9px 13px;
+  border-radius:2px;border:0;cursor:pointer;text-decoration:none;transition:filter .2s}
+.pill:hover{filter:brightness(1.1)}
+.knob{width:25px;height:25px;border-radius:50%;background:var(--red);border:0;cursor:pointer;
+  box-shadow:0 5px 16px rgba(232,32,60,.45);transition:transform .22s}
+.knob:hover{transform:scale(1.12)}
+.tsurf{position:absolute;left:50%;top:578px;width:1160px;height:1px;margin-left:-580px;
+  background:linear-gradient(90deg,transparent,var(--line2) 16%,var(--line2) 84%,transparent)}
+
+/* ══ sections ══ */
+section{padding:96px 0;border-top:1px solid var(--line)}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:34px;flex-wrap:wrap}
+
+/* drawers */
+.dr{border-bottom:1px solid var(--line)}
+.dr:first-of-type{border-top:1px solid var(--line)}
+.drh{display:grid;grid-template-columns:56px 1fr auto 30px;gap:20px;align-items:center;
+  padding:22px 0;cursor:pointer;background:none;border:0;width:100%;text-align:left;color:inherit}
+.drh .n{font-family:var(--M);font-size:10px;letter-spacing:.15em;color:var(--dim2)}
+.drh h3{color:#f0eee9;transition:color .3s}
+.dr[data-open="1"] .drh h3{color:var(--yellow)}
+.drh .v{font-family:var(--M);font-size:10px;color:var(--dim);white-space:nowrap}
+.drh .x{width:26px;height:26px;border:1px solid var(--line2);border-radius:50%;display:grid;
+  place-items:center;font-family:var(--M);font-size:14px;color:var(--dim);transition:transform .45s,border-color .3s,color .3s}
+.dr[data-open="1"] .drh .x{transform:rotate(45deg);border-color:var(--yellow);color:var(--yellow)}
+.drb{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.2,.8,.2,1)}
+.drb div{padding:0 0 26px 76px;max-width:66ch}
+
+/* horizontal rails */
+.rail{display:flex;gap:14px;overflow-x:auto;padding:4px 36px 22px;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.rail::-webkit-scrollbar{height:3px}
+.rail::-webkit-scrollbar-thumb{background:var(--line2)}
+.rail>*{scroll-snap-align:start;flex:0 0 auto}
+.yt{width:352px;aspect-ratio:16/9;border:1px solid var(--line2);border-radius:4px;overflow:hidden;
+  position:relative;background:#0a0b0f;cursor:pointer;transition:border-color .35s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.yt:hover{border-color:var(--yellow);transform:translateY(-4px)}
+.yt>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .4s,transform .6s}
+.yt:hover>img{filter:brightness(1.06)}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt .ph{position:absolute;inset:0;display:grid;place-items:center;transition:background .4s;
+  background:linear-gradient(180deg,rgba(7,7,10,.16),transparent 42%,rgba(7,7,10,.8))}
+.yt .ph b{width:52px;height:52px;border-radius:50%;background:var(--red);color:#fff;display:grid;
+  place-items:center;font-size:17px;font-family:var(--M);box-shadow:0 8px 26px rgba(232,32,60,.42);
+  transition:transform .35s}
+.yt:hover .ph b{transform:scale(1.12)}
+.yt .ph i{position:absolute;bottom:11px;left:13px;font-style:normal;font-family:var(--M);
+  font-size:9px;letter-spacing:.15em;color:#e9e7e2;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+
+/* film */
+.film{position:relative;border:1px solid var(--line2);border-radius:6px;overflow:hidden;background:#05060a}
+.film video{display:block;width:100%;height:auto}
+.filmbar{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;
+  border-top:1px solid var(--line);background:var(--bg2)}
+
+/* channel index */
+.chg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.ch{background:var(--bg2);padding:22px;display:flex;align-items:center;gap:14px;transition:background .35s}
+.ch:hover{background:var(--bg3)}
+.ch img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.ch b{font-family:var(--D);font-weight:600;font-size:17px;letter-spacing:-.02em;display:block}
+.ch span{font-family:var(--M);font-size:10.5px;color:var(--dim)}
+
+/* results — big, expandable */
+.res{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}
+.rc{position:relative;border:1px solid var(--line2);border-radius:5px;overflow:hidden;
+  background:var(--bg2);cursor:zoom-in;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s}
+.rc:hover{transform:translateY(-5px);border-color:var(--yellow)}
+.rc img{display:block;width:100%;height:auto}
+.rc .cap{display:flex;justify-content:space-between;gap:12px;padding:13px 16px;border-top:1px solid var(--line)}
+.rc .cap b{font-family:var(--D);font-weight:800;font-size:19px;letter-spacing:-.03em}
+.rc .cap span{font-family:var(--M);font-size:9.5px;letter-spacing:.1em;color:var(--dim2);text-align:right}
+.rstack{display:grid;gap:16px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(4,4,7,.94);display:none;place-items:center;padding:44px;
+  backdrop-filter:blur(7px)}
+.lb.on{display:grid}
+.lb img{max-width:94vw;max-height:88vh;border:1px solid var(--line2);border-radius:4px}
+.lb .x{position:absolute;top:22px;right:26px;font-family:var(--M);font-size:11px;letter-spacing:.15em;
+  color:var(--dim);background:none;border:1px solid var(--line2);padding:9px 14px;cursor:pointer;border-radius:2px}
+
+/* spamguard */
+.sg{display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:start}
+.sgnum{font-family:var(--D);font-weight:800;font-size:clamp(72px,13vw,168px);line-height:.8;
+  letter-spacing:-.055em;color:var(--red)}
+.tick{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.tick span{font-family:var(--M);font-size:10px;letter-spacing:.1em;border:1px solid var(--line2);
+  padding:6px 10px;border-radius:2px;color:#b9c0c8;background:var(--bg2)}
+.tick span b{color:var(--red);font-weight:400}
+.sgex{margin-top:26px;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.sgr{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 18px;border-bottom:1px solid var(--line);
+  background:var(--bg2)}
+.sgr:last-child{border-bottom:0}
+.sgr b{font-family:var(--M);font-size:10.5px;color:var(--coral);font-weight:400}
+.sgr span{font-family:var(--M);font-size:10.5px;color:#9ba2aa;line-height:1.65}
+
+/* layers */
+.lay{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.lc{background:var(--bg2);padding:32px;transition:background .4s}
+.lc:hover{background:var(--bg3)}
+.lc .n{font-family:var(--M);font-size:9px;letter-spacing:.2em;color:var(--dim2)}
+.lc h3{margin:13px 0 10px;font-weight:800;letter-spacing:-.03em;font-size:26px}
+
+/* figures */
+.figs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.fig{background:var(--bg);padding:28px 22px}
+.fig b{display:block;font-family:var(--D);font-weight:800;font-size:clamp(32px,5vw,54px);
+  line-height:.94;letter-spacing:-.045em}
+.fig span{display:block;margin-top:11px;font-family:var(--M);font-size:9.5px;letter-spacing:.09em;
+  line-height:1.6;color:var(--dim)}
+
+.close{border:1px solid var(--line2);border-radius:6px;padding:54px;
+  background:radial-gradient(130% 170% at 6% 0%,#15171d,#08090c 60%)}
+footer{padding:40px 0 70px;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--line)}
+
+.rv{opacity:0;transform:translateY(20px)}
+.rv.in{opacity:1;transform:none;transition:opacity .95s cubic-bezier(.2,.8,.2,1),transform .95s cubic-bezier(.2,.8,.2,1)}
+
+@media (max-width:1000px){
+  .res{grid-template-columns:1fr} .chg{grid-template-columns:1fr 1fr}
+  .figs{grid-template-columns:1fr 1fr} .sg{grid-template-columns:1fr;gap:26px}
+  .table{height:600px;perspective:1150px} .reel{width:198px;height:352px}
+  .tsurf{width:100%;left:0;margin-left:0;top:474px}
+}
+@media (max-width:620px){
+  .w{padding:0 20px} nav ul{display:none} .ledger{display:none}
+  .lay,.chg,.figs{grid-template-columns:1fr} section{padding:66px 0}
+  .table{height:520px} .reel{width:168px;height:299px}
+  .drb div{padding-left:0} .drh{grid-template-columns:40px 1fr 30px} .drh .v{display:none}
+  .rail{padding-left:20px;padding-right:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto} .art,.rv.in{transition-duration:.01ms!important} .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ledger">
+  <span class="c">FIN_03 · EXPEDIENTE</span>
+  <span class="c">TL/A2 · MMXXVI</span>
+</div>
+
+<div class="w">
+  <nav>
+    <div class="brand"><b>FINIMATIC</b><i></i></div>
+    <ul>
+      <li><a href="#piezas">Piezas</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#archivo">Archivo</a></li>
+      <li><a href="#guard">Moderación</a></li>
+      <li><a href="#brain">Brain</a></li><li><a href="#capas">Capas</a></li>
+    </ul>
+    <div class="c">TradingLab · Ago 2026</div>
+  </nav>
+
+  <div class="mast">
+    <div class="c">Expediente de trabajo — preparado para Blanca</div>
+    <h1>Vuestro<br>catálogo,<br><em>desenterrado</em></h1>
+    <div class="mrow">
+      <p class="lede">Todo lo que sigue procede de material ya publicado o de trabajo ya entregado. Nada es una maqueta. Pulsa cualquier pieza de la mesa para examinarla.</p>
+      <div style="text-align:right">
+        <div class="c">Ensamblaje</div>
+        <div class="mt">Alex Ruiz · TradingLab</div>
+        <div class="mt">11 Ago 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MESA — re-choreographing collage ══ -->
+<section id="piezas" style="border-top:0;padding-top:0">
+  <div class="w">
+    <div class="table" id="table">
+      <div class="tsurf"></div>
+
+      <article class="art reel" data-k="r0">
+        <span class="tag own">AR—001</span>
+        <img src="media/reel1.jpg" alt="" loading="eager" decoding="async">
+        <video src="media/reel1.mp4" playsinline muted loop preload="none"></video>
+        <span class="vg"></span><span class="cp">Estilo oscuro · acento rojo · 56 s</span>
+      </article>
+
+      <article class="art reel" data-k="r1">
+        <span class="tag own">AR—002</span>
+        <img src="media/reel2.jpg" alt="" loading="lazy" decoding="async">
+        <video src="media/reel2.mp4" playsinline muted loop preload="none"></video>
+        <span class="vg"></span><span class="cp">Estilo editorial · crema · 53 s</span>
+      </article>
+
+      <article class="art reel" data-k="r2">
+        <span class="tag">FN—014</span>
+        <img src="media/reel3.jpg" alt="" loading="lazy" decoding="async">
+        <video src="media/reel3.mp4" playsinline muted loop preload="none"></video>
+        <span class="vg"></span><span class="cp">Canal externo · referencia · 56 s</span>
+      </article>
+
+      <div class="art scrap" data-k="s0" style="width:230px">
+        <img src="media/clients/receipt_150m.jpg" alt="" loading="lazy" data-full="media/clients/receipt_150m.jpg">
+        <div class="sl"><span>Recibo 01</span><span>156M+</span></div>
+      </div>
+      <div class="art scrap" data-k="s1" style="width:206px">
+        <img src="media/clients/receipt_66m.jpg" alt="" loading="lazy" data-full="media/clients/receipt_66m.jpg">
+        <div class="sl"><span>Recibo 02</span><span>6.6M+</span></div>
+      </div>
+      <div class="art scrap" data-k="s2" style="width:214px">
+        <img src="media/clients/receipt_longform.jpg" alt="" loading="lazy" data-full="media/clients/receipt_longform.jpg">
+        <div class="sl"><span>Recibo 03</span><span>365 d</span></div>
+      </div>
+
+      <div class="ficha" id="ficha">
+        <div class="k">Ficha</div>
+        <h4 id="fh">AR—001</h4>
+        <p id="fp">Pieza montada a partir de metraje propio de Alex. Corte ajustado sobre forma de onda, subtítulo en español, kit oscuro con acento rojo.</p>
+        <div class="yr" id="fy">Metraje propio · 2026</div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:14px">
+          <button class="pill" id="snd">▶ Con sonido</button>
+          <button class="knob" id="nxt" aria-label="Siguiente"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MÉTODO — drawers ══ -->
+<section id="metodo">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">02 — Procedimiento</div><h2 style="margin-top:12px">Cómo se corta</h2></div>
+      <div class="c" style="text-align:right">Cuatro pasos<br>Idénticos cada vez</div>
+    </div>
+
+    <div class="dr rv" data-open="1">
+      <button class="drh"><span class="n">01</span><h3>Transcripción íntegra</h3><span class="v">texto + tiempos</span><span class="x">+</span></button>
+      <div class="drb"><div><p>El vídeo entra a texto con marca de tiempo por palabra. Nada se selecciona de memoria ni por intuición, lo que significa que el criterio no cambia según quién esté montando ese día.</p></div></div>
+    </div>
+    <div class="dr rv">
+      <button class="drh"><span class="n">02</span><h3>Marcado de afirmaciones cerradas</h3><span class="v">criterio fijo</span><span class="x">+</span></button>
+      <div class="drb"><div><p>Se localizan los momentos que se sostienen solos: una tesis, una cifra, un giro, una comparación histórica. Si el fragmento necesita contexto previo para entenderse, se descarta — por bueno que sea.</p></div></div>
+    </div>
+    <div class="dr rv">
+      <button class="drh"><span class="n">03</span><h3>Corte sobre forma de onda</h3><span class="v">precisión ms</span><span class="x">+</span></button>
+      <div class="drb"><div><p>Los límites se ajustan al silencio real y no a la palabra más próxima. Sin entradas cortadas, sin colas muertas. Es la diferencia entre un corte que respira y uno que suena a recorte.</p></div></div>
+    </div>
+    <div class="dr rv">
+      <button class="drh"><span class="n">04</span><h3>Montaje sobre kit cerrado</h3><span class="v">kit fijo</span><span class="x">+</span></button>
+      <div class="drb"><div><p>Tipografía, color, ritmo de subtítulo y tratamiento de gráficos quedan definidos antes de montar nada. Por eso veinte piezas seguidas parecen del mismo canal y no de veinte editores distintos.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RAIL — shorts en producción ══ -->
+<section style="padding-bottom:66px">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">03 — Formato largo</div><h2 style="margin-top:12px">Largos <span class="hl">publicados</span></h2></div>
+      <div class="c" style="text-align:right">Desliza →</div>
+    </div>
+  </div>
+  <div class="rail" id="ytrail">
+    <div class="yt" data-yt="2WUvpKU_Cas"><img src="media/yt/2WUvpKU_Cas.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>LARGO 01</i></div></div>
+    <div class="yt" data-yt="Ue_ScGDc0nw"><img src="media/yt/Ue_ScGDc0nw.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>LARGO 02</i></div></div>
+    <div class="yt" data-yt="rwF477BtTG0"><img src="media/yt/rwF477BtTG0.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>LARGO 03</i></div></div>
+    <div class="yt" data-yt="gFHwWz_2YYc"><img src="media/yt/gFHwWz_2YYc.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>LARGO 04</i></div></div>
+    <div class="yt" data-yt="c9olP6Pr598"><img src="media/yt/c9olP6Pr598.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>LARGO 05</i></div></div>
+    <div class="yt" data-yt="3UJ6QvY29Kc"><img src="media/yt/3UJ6QvY29Kc.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>CASO 01</i></div></div>
+    <div class="yt" data-yt="I6aNI19NCxw"><img src="media/yt/I6aNI19NCxw.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>CASO 02</i></div></div>
+    <div class="yt" data-yt="_iMRs2vjaUk"><img src="media/yt/_iMRs2vjaUk.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>CASO 03</i></div></div>
+    <div class="yt" data-yt="YXFvwJQBzJc"><img src="media/yt/YXFvwJQBzJc.jpg" alt="" loading="lazy" decoding="async"><div class="ph"><b>&#9654;</b><i>CASO 04</i></div></div>
+  </div>
+</section>
+
+<!-- ══ FILM ══ -->
+<section>
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">04 — Animación</div><h2 style="margin-top:12px">Estudio de <span class="hb">gráficos</span></h2></div>
+      <div class="c" style="text-align:right">Renderizado<br>No generado</div>
+    </div>
+    <p class="lede rv" style="margin-bottom:26px">Las cifras en pantalla se renderizan desde datos reales, no se generan con IA. Por eso un número nunca sale deformado — que en un canal financiero es la diferencia entre parecer serio y no parecerlo.</p>
+    <div class="film rv">
+      <video id="filmv" src="https://pub-80916ecd31064b1bb21b62cf3490e8a3.r2.dev/finimatic-animated.mp4"
+             poster="media/animated-poster.jpg" playsinline muted loop preload="none" controls></video>
+      <div class="filmbar">
+        <span class="c">Estudio de gráficos · pieza animada para canal cliente</span>
+        <a class="pill" href="https://pub-80916ecd31064b1bb21b62cf3490e8a3.r2.dev/raw-25min.mp4" target="_blank" rel="noopener">Ver corte largo · 25 min</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARCHIVO ══ -->
+<section id="archivo">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">05 — Archivo</div><h2 style="margin-top:12px">Canales en <span class="hc">activo</span></h2></div>
+      <div class="c" style="text-align:right">Solo finanzas<br>y trading</div>
+    </div>
+
+    <div class="chg rv">
+      <div class="ch"><img src="media/clients/investographer.jpg" alt=""><div><b>Investographer</b><span>1.08M suscriptores</span></div></div>
+      <div class="ch"><img src="media/clients/Jason.jpg" alt=""><div><b>Jason Pizzino</b><span>360K suscriptores</span></div></div>
+      <div class="ch"><img src="media/clients/vijaythakkar.jpg" alt=""><div><b>Vijay Thakkar</b><span>347K suscriptores</span></div></div>
+      <div class="ch"><img src="media/clients/michael.jpg" alt=""><div><b>Michael Pizzino</b><span>73.4K suscriptores</span></div></div>
+      <div class="ch"><img src="media/clients/trader_harneet.jpg" alt=""><div><b>Trader Harneet</b><span>42.8K suscriptores</span></div></div>
+      <div class="ch"><img src="media/clients/TheInvestoraccel.jpg" alt=""><div><b>TIA Crypto</b><span>Canal activo</span></div></div>
+    </div>
+
+    <div class="figs rv" style="margin-top:18px">
+      <div class="fig"><b>300M+</b><span>visualizaciones generadas en el nicho</span></div>
+      <div class="fig"><b class="hl">21+</b><span>piezas por semana desde catálogo</span></div>
+      <div class="fig"><b class="hb">Horas</b><span>de entrega, no días ni semanas</span></div>
+      <div class="fig"><b>5 años</b><span>solo en YouTube financiero</span></div>
+    </div>
+
+    <div class="sh" style="margin-top:66px"><div><div class="c">Resultados · pulsa para ampliar</div></div></div>
+    <div class="res rv">
+      <div class="rc" data-full="media/clients/receipt_150m.jpg">
+        <img src="media/clients/receipt_150m.jpg" alt="">
+        <div class="cap"><b>156M+ · 384K subs</b><span>Canal cliente<br>acumulado</span></div>
+      </div>
+      <div class="rstack">
+        <div class="rc" data-full="media/clients/receipt_longform.jpg">
+          <img src="media/clients/receipt_longform.jpg" alt="">
+          <div class="cap"><b>610K · +10.5K</b><span>365 días</span></div>
+        </div>
+        <div class="rc" data-full="media/clients/receipt_66m.jpg">
+          <img src="media/clients/receipt_66m.jpg" alt="">
+          <div class="cap"><b>6.6M+</b><span>generadas</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SPAMGUARD ══ -->
+<section id="guard">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">06 — Moderación</div><h2 style="margin-top:12px">El spam que<br>no llegáis a ver</h2></div>
+      <div class="c" style="text-align:right">Registro real<br>22 jun — 9 jul 2026</div>
+    </div>
+
+    <div class="sg rv">
+      <div>
+        <div class="sgnum">11.790</div>
+        <div class="c" style="margin-top:12px">comentarios retirados</div>
+        <div class="mt" style="margin-top:16px">8.598 cuentas distintas<br>en diecisiete días</div>
+      </div>
+      <div>
+        <p class="lede">Los canales financieros atraen un tipo concreto de fraude: rings de tickers inventados, suplantación del propio canal y falsos testimonios de mentores. No es ruido — es captación activa sobre vuestra audiencia, y aparece en los comentarios donde más confianza hay.</p>
+        <div class="tick">
+          <span><b>SPX99X</b> · 1.944</span><span><b>GRO29D</b> · 1.888</span><span><b>GRO66J</b> · 1.398</span>
+          <span><b>GRO11T</b> · 851</span><span><b>SPX88K</b> · 595</span><span><b>GRO82H</b> · 307</span>
+          <span><b>GRO52L</b> · 287</span>
+        </div>
+        <div class="sgex">
+          <div class="sgr"><b>656 casos</b><span>Suplantación del nombre del canal — cuentas que copian el perfil y responden a los comentarios como si fueran el creador.</span></div>
+          <div class="sgr"><b>385 casos</b><span>Patrón de pump sobre ticker oscuro, repetido por decenas de cuentas en la misma hora.</span></div>
+          <div class="sgr"><b>200 casos</b><span>Ring de falsos mentores — testimonios de rentabilidad acreditando a una asesora inventada.</span></div>
+          <div class="sgr"><b>8.303</b><span>Retirados de un solo canal cliente en el periodo registrado.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FINIMATIC BRAIN ══ -->
+<section id="brain">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">07 — Producto</div><h2 style="margin-top:12px">Finimatic <span class="hl">Brain</span></h2></div>
+      <div class="c" style="text-align:right">En producción<br>con un cliente</div>
+    </div>
+    <p class="lede rv" style="margin-bottom:26px">Un asistente entrenado con vuestros propios vídeos y vuestro tono, que cita la fuente en cada respuesta. Absorbe más de 20 horas semanales de soporte y está en producción en tres semanas. En el vídeo responde a una pregunta real de un miembro, sin cortes.</p>
+    <div class="film rv">
+      <video id="brainv" src="media/brain-vsl.mp4" poster="media/brain-poster.jpg"
+             playsinline muted preload="none" controls></video>
+      <div class="filmbar">
+        <span class="c">Knowledge Brain · respuesta a un miembro real</span>
+        <span class="c">20+ h/semana · 3 semanas hasta producción</span>
+      </div>
+    </div>
+    <div class="figs rv" style="margin-top:18px">
+      <div class="fig"><b class="hl">20+ h</b><span>de soporte absorbidas cada semana</span></div>
+      <div class="fig"><b>3 sem</b><span>desde el arranque hasta producción</span></div>
+      <div class="fig"><b class="hb">Con fuente</b><span>cita el vídeo del que sale cada respuesta</span></div>
+      <div class="fig"><b class="hc">Vuestro tono</b><span>entrenado sobre vuestro propio contenido</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAPAS ══ -->
+<section id="capas">
+  <div class="w">
+    <div class="sh">
+      <div><div class="c">08 — Diferencia</div><h2 style="margin-top:12px">Dónde encajamos<br>si ya tenéis <span class="hl">equipo</span></h2></div>
+      <div class="c" style="text-align:right">Cuatro capas</div>
+    </div>
+    <p class="lede rv" style="margin-bottom:30px">Un buen editor interno edita bien, ahí no hay discusión. La diferencia está en el volumen que se sostiene y en las capas de alrededor, que es donde no suele llegar un equipo pequeño.</p>
+    <div class="lay rv">
+      <div class="lc"><div class="n">CAPA 01</div><h3>Volumen sin contratar</h3>
+        <p>IA en las partes donde no se nota, trabajo humano donde sí. Eso sostiene 21+ piezas semanales sin el coste de dos o tres incorporaciones.</p></div>
+      <div class="lc"><div class="n">CAPA 02</div><h3 class="hb">Animación de gráficos</h3>
+        <p>Estudio propio: series reales, anotaciones, cifras exactas. Renderizado desde datos, así que los números nunca se deforman.</p></div>
+      <div class="lc"><div class="n">CAPA 03</div><h3 class="hl">Finimatic Brain</h3>
+        <p>Asistente entrenado con vuestros propios vídeos y vuestro tono, con cita de fuente en cada respuesta. Absorbe más de 20 horas semanales de soporte. Tres semanas hasta producción.</p></div>
+      <div class="lc"><div class="n">CAPA 04</div><h3 class="hr">Moderación continua</h3>
+        <p>11.790 comentarios fraudulentos retirados en diecisiete días. Funciona en segundo plano, sin que nadie de vuestro equipo tenga que mirarlo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CIERRE ══ -->
+<section>
+  <div class="w">
+    <div class="close rv">
+      <div class="c">09 — Siguiente paso</div>
+      <h2 style="margin-top:14px">Si encaja,<br>nos sentamos</h2>
+      <p class="lede" style="margin-top:18px">Trabajamos por capas, así que se puede empezar por una sola — solo cortes, solo gráficos, solo moderación — y ampliar si funciona. Si al ver esto creéis que aportamos algo distinto a lo que ya montáis internamente, agendamos cuando os venga bien. Si no encaja, decidlo sin problema — las piezas de Alex se quedan con vosotros igualmente.</p>
+      <p style="margin-top:28px"><a class="pill" href="mailto:mia@finimatic.com?subject=TradingLab%20%C3%97%20Finimatic">Responder al correo →</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="w">
+  <footer>
+    <div><div class="c">Finimatic · Documento privado</div><div class="mt" style="margin-top:6px">Preparado para TradingLab. No indexado.</div></div>
+    <div class="brand"><b>FINIMATIC</b><i></i></div>
+  </footer>
+</div>
+
+<div class="lb" id="lb"><button class="x" id="lbx">CERRAR ✕</button><img id="lbi" src="" alt=""></div>
+
+<script>
+(function(){
+/* ─────────── MESA: whole collage re-choreographs on select ─────────── */
+var table=document.getElementById('table');
+var arts=[].slice.call(table.querySelectorAll('.art'));
+var ficha=document.getElementById('ficha');
+var fh=document.getElementById('fh'), fp=document.getElementById('fp'), fy=document.getElementById('fy');
+var cur=0, S=1;
+
+var DATA={
+ r0:['AR—001','Pieza montada a partir de metraje propio de Alex. Corte ajustado sobre forma de onda, subtítulo en español, kit oscuro con acento rojo.','Metraje propio · 2026'],
+ r1:['AR—002','Mismo origen, dirección de arte distinta. Fondo crema, panel de gráfico incrustado, ritmo más pausado y tipografía editorial.','Metraje propio · 2026'],
+ r2:['FN—014','Canal externo, incluido como referencia de rango. Dato sobreimpreso sobre metraje y subtítulo limpio en inglés.','Canal externo · 2026'],
+ s0:['RECIBO 01','156M+ visualizaciones y 384K suscriptores acumulados en un canal cliente. Pulsa de nuevo para ampliar la captura.','Acumulado'],
+ s1:['RECIBO 02','6.6M+ visualizaciones generadas. Pulsa de nuevo para ampliar la captura.','Acumulado'],
+ s2:['RECIBO 03','610K visualizaciones y +10.5K suscriptores en 365 días. Pulsa de nuevo para ampliar.','365 días']
+};
+/* deterministic satellite offsets so the shuffle looks composed, not random */
+var ORB=[[-430,232,-9],[430,206,8],[-268,300,5],[300,318,-6],[-470,72,4],[470,96,-5]];
+
+function measure(){ S = innerWidth>1000?1:(innerWidth>620?.76:.6); }
+
+function place(){
+  var sat=0;
+  arts.forEach(function(el,i){
+    var x,y,r,z,sc,op,zi;
+    if(i===cur){
+      x=-40; y=0; r=-.8; z=140; sc=1.06; op=1; zi=25;
+      el.style.filter='none';
+    } else {
+      var o=ORB[sat%ORB.length]; sat++;
+      x=o[0]; y=o[1]; r=o[2]; z=-70-(sat*26); sc=.82; op=.62; zi=20-sat;
+      el.style.filter='grayscale(.5) brightness(.9)';
+    }
+    el.style.transform='translate3d(calc(-50% + '+(x*S)+'px),'+(y*S)+'px,'+(z*S)+'px) rotateY('+(x>0?-9:(x<0?9:0))+'deg) rotate('+r+'deg) scale('+sc+')';
+    el.style.opacity=op; el.style.zIndex=zi;
+  });
+  /* ficha follows the focused piece */
+  ficha.style.left='50%';
+  ficha.style.top=(96*S)+'px';
+  ficha.style.transform='translate3d(calc(-50% + '+(228*S)+'px),0,150px)';
+  playOnly();
+}
+
+function swap(k){
+  ficha.classList.add('shrink');
+  setTimeout(function(){
+    var d=DATA[arts[cur].dataset.k];
+    fh.textContent=d[0]; fp.textContent=d[1]; fy.textContent=d[2];
+    ficha.classList.remove('shrink');
+  },260);
+}
+
+function playOnly(){
+  arts.forEach(function(el,i){
+    var v=el.querySelector('video'); if(!v) return;
+    if(i===cur){ el.classList.add('on'); if(v.preload==='none') v.preload='auto';
+      var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+    else { el.classList.remove('on'); if(!v.paused) v.pause(); }
+  });
+}
+
+arts.forEach(function(el,i){
+  el.addEventListener('click',function(){
+    if(i!==cur){ cur=i; place(); swap(); return; }
+    var img=el.querySelector('img[data-full]');
+    if(img){ openLb(img.dataset.full); }          // focused receipt → lightbox
+  });
+});
+document.getElementById('nxt').addEventListener('click',function(e){
+  e.stopPropagation(); cur=(cur+1)%arts.length; place(); swap();
+});
+document.getElementById('snd').addEventListener('click',function(e){
+  e.stopPropagation();
+  var v=arts[cur].querySelector('video'); if(!v) return;
+  v.muted=!v.muted; this.textContent=v.muted?'▶ Con sonido':'■ Silenciar';
+  if(!v.muted) v.play().catch(function(){});
+});
+addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'){cur=(cur+1)%arts.length;place();swap();}
+  if(e.key==='ArrowLeft'){cur=(cur-1+arts.length)%arts.length;place();swap();}
+  if(e.key==='Escape') closeLb();
+});
+
+/* ─────────── drawers ─────────── */
+[].forEach.call(document.querySelectorAll('.dr'),function(dr){
+  var b=dr.querySelector('.drb'), h=dr.querySelector('.drh');
+  function sync(){ b.style.maxHeight = dr.dataset.open==='1' ? (b.scrollHeight+'px') : '0px'; }
+  h.addEventListener('click',function(){ dr.dataset.open = dr.dataset.open==='1'?'0':'1'; sync(); });
+  sync(); addEventListener('resize',sync);
+});
+
+/* ─────────── youtube facades: iframe only on click ─────────── */
+[].forEach.call(document.querySelectorAll('.yt'),function(c){
+  c.addEventListener('click',function(){
+    if(c.dataset.live) return; c.dataset.live='1';
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube.com/embed/'+c.dataset.yt+'?autoplay=1&rel=0&modestbranding=1';
+    f.allow='autoplay; encrypted-media; picture-in-picture'; f.allowFullscreen=true;
+    c.appendChild(f);
+  });
+});
+
+/* ─────────── film: only decodes when scrolled to ─────────── */
+var fv=document.getElementById('filmv');
+var bv=document.getElementById('brainv');
+
+/* ─────────── lightbox ─────────── */
+var lb=document.getElementById('lb'), lbi=document.getElementById('lbi');
+function openLb(src){ lbi.src=src; lb.classList.add('on'); }
+function closeLb(){ lb.classList.remove('on'); }
+document.getElementById('lbx').addEventListener('click',closeLb);
+lb.addEventListener('click',function(e){ if(e.target===lb) closeLb(); });
+[].forEach.call(document.querySelectorAll('.rc'),function(c){
+  c.addEventListener('click',function(){ openLb(c.dataset.full); });
+});
+
+/* ─────────── observers ─────────── */
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(en){en.forEach(function(x){
+    if(x.isIntersecting) playOnly();
+    else arts.forEach(function(el){var v=el.querySelector('video'); if(v&&!v.paused)v.pause();});
+  });},{threshold:.15}).observe(table);
+
+  new IntersectionObserver(function(en){en.forEach(function(x){
+    if(x.isIntersecting){ if(fv.preload==='none') fv.preload='metadata'; }
+    else if(!fv.paused) fv.pause();
+  });},{threshold:.2}).observe(fv);
+
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){
+    if(!x.isIntersecting) return;
+    var el=x.target, sib=[].slice.call(el.parentNode.querySelectorAll('.rv'));
+    el.style.transitionDelay=Math.min(sib.indexOf(el),5)*80+'ms';
+    el.classList.add('in'); io.unobserve(el);
+  });},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+} else {
+  document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});
+}
+
+var rt; addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){measure();place();},150);});
+function boot(){ measure(); place(); }
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(boot); else boot();
+})();
+</script>
+</body>
+</html>
