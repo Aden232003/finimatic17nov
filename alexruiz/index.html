@@ -95,9 +95,22 @@ nav a:hover{color:var(--txt)}
   font-family:var(--M);font-size:10px;font-weight:500;letter-spacing:.07em;padding:9px 13px;
   border-radius:2px;border:0;cursor:pointer;text-decoration:none;transition:filter .2s}
 .pill:hover{filter:brightness(1.1)}
-.knob{width:25px;height:25px;border-radius:50%;background:var(--red);border:0;cursor:pointer;
-  box-shadow:0 5px 16px rgba(232,32,60,.45);transition:transform .22s}
-.knob:hover{transform:scale(1.12)}
+.nextwrap{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.18)}
+.knob{position:relative;width:40px;height:40px;border-radius:50%;background:var(--red);border:0;
+  cursor:pointer;color:#fff;font-family:var(--M);font-size:15px;line-height:1;display:grid;
+  place-items:center;flex:0 0 40px;
+  box-shadow:0 6px 20px rgba(232,32,60,.55);transition:transform .22s,box-shadow .22s}
+.knob:hover{transform:scale(1.1);box-shadow:0 8px 26px rgba(232,32,60,.75)}
+.knob::after{content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid var(--red);opacity:0;pointer-events:none}
+.knob.hint::after{animation:ping 1.7s cubic-bezier(.2,.7,.3,1) infinite}
+@keyframes ping{0%{transform:scale(.82);opacity:.85}70%{transform:scale(1.32);opacity:0}100%{opacity:0}}
+.nextlab{line-height:1.35}
+.nextlab b{display:block;font-family:var(--M);font-size:10px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:#fff}
+.nextlab span{display:block;font-family:var(--M);font-size:9.5px;color:#c3ccff;margin-top:2px}
+@media (prefers-reduced-motion:reduce){.knob.hint::after{animation:none}}
 .tsurf{position:absolute;left:50%;top:578px;width:1160px;height:1px;margin-left:-580px;
   background:linear-gradient(90deg,transparent,var(--line2) 16%,var(--line2) 84%,transparent)}
 
@@ -308,9 +321,10 @@ footer{padding:40px 0 70px;display:flex;justify-content:space-between;align-item
         <h4 id="fh">AR—001</h4>
         <p id="fp">Pieza montada a partir de metraje propio de Alex. Corte ajustado sobre forma de onda, subtítulo en español, kit oscuro con acento rojo.</p>
         <div class="yr" id="fy">Metraje propio · 2026</div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:14px">
-          <button class="pill" id="snd">▶ Con sonido</button>
-          <button class="knob" id="nxt" aria-label="Siguiente"></button>
+        <button class="pill" id="snd" style="margin-top:13px">▶ Con sonido</button>
+        <div class="nextwrap">
+          <button class="knob hint" id="nxt" aria-label="Ver la siguiente muestra">→</button>
+          <span class="nextlab"><b>Siguiente muestra</b><span id="cnt">01 / 06</span></span>
         </div>
       </div>
     </div>
@@ -572,6 +586,10 @@ function place(){
   playOnly();
 }
 
+var cnt=document.getElementById('cnt'), knob=document.getElementById('nxt'), used=false;
+function tick(){ if(cnt) cnt.textContent=String(cur+1).padStart(2,'0')+' / '+String(arts.length).padStart(2,'0'); }
+function usedOnce(){ if(used) return; used=true; knob.classList.remove('hint'); }
+
 function swap(k){
   ficha.classList.add('shrink');
   setTimeout(function(){
@@ -579,6 +597,7 @@ function swap(k){
     fh.textContent=d[0]; fp.textContent=d[1]; fy.textContent=d[2];
     ficha.classList.remove('shrink');
   },260);
+  tick();
 }
 
 function playOnly(){
@@ -592,13 +611,13 @@ function playOnly(){
 
 arts.forEach(function(el,i){
   el.addEventListener('click',function(){
-    if(i!==cur){ cur=i; place(); swap(); return; }
+    if(i!==cur){ usedOnce(); cur=i; place(); swap(); return; }
     var img=el.querySelector('img[data-full]');
     if(img){ openLb(img.dataset.full); }          // focused receipt → lightbox
   });
 });
 document.getElementById('nxt').addEventListener('click',function(e){
-  e.stopPropagation(); cur=(cur+1)%arts.length; place(); swap();
+  e.stopPropagation(); usedOnce(); cur=(cur+1)%arts.length; place(); swap();
 });
 document.getElementById('snd').addEventListener('click',function(e){
   e.stopPropagation();
@@ -669,7 +688,7 @@ if('IntersectionObserver' in window){
 }
 
 var rt; addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){measure();place();},150);});
-function boot(){ measure(); place(); }
+function boot(){ measure(); place(); tick(); }
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(boot); else boot();
 })();
 </script>
